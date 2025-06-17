@@ -3,8 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableNativeFeedback, View, Platform } from 'react-native';
+import colors from '../../constants/colors';
 
 import CustomTabBarButton from '../components/CustomTabBarButton';
+
 
 // Importamos las pantallas
 import HomeScreen from '../screens/HomeScreen';
@@ -21,6 +23,9 @@ export default function TabNavigator() {
                 screenOptions={{
                     tabBarShowLabel: false,
                     animation: 'fade',
+                    headerShown: false,
+                    tabBarActiveTintColor: colors.active,
+                    tabBarInactiveTintColor: colors.inactive,
                     tabBarStyle: {
                         paddingBottom: 12,
                         paddingTop: 8,
@@ -35,10 +40,10 @@ export default function TabNavigator() {
                         title: 'Inicio',
                         tabBarLabel: 'Inicio',
                         tabBarIcon: ({ color, focused }) => (
-                            <Ionicons 
-                            name="home" 
-                            size={focused ? 30 : 25} 
-                            color={color} />
+                            <Ionicons
+                                name="home"
+                                size={focused ? 30 : 25}
+                                color={color} />
                         ),
                         tabBarButton: (props) => <CustomTabBarButton {...props} />,
                     }}
@@ -50,10 +55,10 @@ export default function TabNavigator() {
                         title: 'Mazos',
                         tabBarLabel: 'Mazos',
                         tabBarIcon: ({ color, focused }) => (
-                            <Ionicons 
-                            name="book" 
-                            size={focused ? 30 : 25} 
-                            color={color} />
+                            <Ionicons
+                                name="book"
+                                size={focused ? 30 : 25}
+                                color={color} />
                         ),
                         tabBarButton: (props) => <CustomTabBarButton {...props} />,
                     }}
@@ -65,10 +70,10 @@ export default function TabNavigator() {
                         title: 'Estadísticas',
                         tabBarLabel: 'Estadísticas',
                         tabBarIcon: ({ color, focused }) => (
-                            <Ionicons 
-                            name="stats-chart" 
-                            size={focused ? 30 : 25} 
-                            color={color} />
+                            <Ionicons
+                                name="stats-chart"
+                                size={focused ? 30 : 25}
+                                color={color} />
                         ),
                         tabBarButton: (props) => <CustomTabBarButton {...props} />,
                     }}
@@ -80,10 +85,10 @@ export default function TabNavigator() {
                         title: 'Perfil',
                         tabBarLabel: 'Perfil',
                         tabBarIcon: ({ color, focused }) => (
-                            <Ionicons 
-                            name="person" 
-                            size={focused ? 30 : 25} 
-                            color={color} />
+                            <Ionicons
+                                name="person"
+                                size={focused ? 30 : 25}
+                                color={color} />
                         ),
                         tabBarButton: (props) => <CustomTabBarButton {...props} />,
                     }}

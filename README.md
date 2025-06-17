@@ -1,2 +1,2 @@
-# Recuerda-
+# Recuerda+
 Aplicación para estudiar

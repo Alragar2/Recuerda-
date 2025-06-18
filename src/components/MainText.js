@@ -3,16 +3,17 @@ import { View, Text, StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 
 
-export default function MainText({ 
-    title, 
-    subtitle, 
-    titleSize = 24, 
-    subtitleSize = 16, 
+export default function MainText({
+    title,
+    subtitle,
+    titleSize = 24,
+    subtitleSize = 16,
     alignItems = "center",
-    marginTop = 50
+    marginTop = 50,
+    marginVertical = 12
 }) {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { marginVertical }]}>
             <View style={{ marginTop }} />
             <View style={[styles.viewTitle, { alignItems }]}>
                 <Text style={[styles.title, { fontSize: titleSize }]}>{title}</Text>
@@ -24,9 +25,9 @@ export default function MainText({
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 12,
         paddingHorizontal: 16,
-    },    viewTitle: {
+    },
+    viewTitle: {
         // alignItems se aplica dinámicamente como prop
     },
     title: {

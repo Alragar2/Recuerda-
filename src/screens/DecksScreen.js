@@ -6,6 +6,7 @@ import colors from '../../constants/colors';
 import CustomSearchBar from '../components/CustomSearchBar';
 import MainText from '../components/MainText';
 import BlockDeck from '../components/BlockDeck';
+
 // Data
 import mockData from '../data/mockData.json';
 

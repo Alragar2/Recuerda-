@@ -10,7 +10,7 @@ import CustomTabBarButton from '../components/CustomTabBarButton';
 
 // Importamos las pantallas
 import HomeScreen from '../screens/HomeScreen';
-import MazosScreen from '../screens/MazosScreen';
+import DecksScreen from '../screens/DecksScreen';
 import EstadisticasScreen from '../screens/EstadisticasScreen';
 import PerfilScreen from '../screens/PerfilScreen';
 
@@ -50,7 +50,7 @@ export default function TabNavigator() {
                 />
                 <Tab.Screen
                     name="Mazos"
-                    component={MazosScreen}
+                    component={DecksScreen}
                     options={{
                         title: 'Mazos',
                         tabBarLabel: 'Mazos',

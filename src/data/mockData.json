@@ -4,25 +4,29 @@
       "id": "1",
       "title": "Matemáticas",
       "subtitle": "12 tarjetas",
-      "image": "https://static.vecteezy.com/system/resources/previews/005/449/876/non_2x/mathematics-doodle-hand-drawn-school-set-vector.jpg"
+      "image": "https://static.vecteezy.com/system/resources/previews/005/449/876/non_2x/mathematics-doodle-hand-drawn-school-set-vector.jpg",
+      "errors": 3
     },
     {
       "id": "2",
       "title": "Historia",
       "subtitle": "8 tarjetas",
-      "image": "https://i0.wp.com/diazvillanueva.com/wp-content/uploads/2022/06/Historia-mapa-antiguo.jpg?resize=678%2C381&ssl=1"
+      "image": "https://i0.wp.com/diazvillanueva.com/wp-content/uploads/2022/06/Historia-mapa-antiguo.jpg?resize=678%2C381&ssl=1",
+      "errors": 1
     },
     {
       "id": "3",
       "title": "Ciencias",
       "subtitle": "15 tarjetas",
-      "image": "https://via.placeholder.com/200x120/994D52/FFFFFF?text=Science"
+      "image": "https://via.placeholder.com/200x120/994D52/FFFFFF?text=Science",
+      "errors": 5
     },
     {
       "id": "4",
       "title": "Inglés",
       "subtitle": "20 tarjetas",
-      "image": "https://via.placeholder.com/200x120/34C759/FFFFFF?text=English"
+      "image": "https://via.placeholder.com/200x120/34C759/FFFFFF?text=English",
+      "errors": 2
     }
   ]
 }

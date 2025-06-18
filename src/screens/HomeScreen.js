@@ -22,6 +22,7 @@ export default function HomeScreen() {
             description={item.subtitle}
             imageUrl={item.image}
             onPress={() => console.log("Card pressed:", item.id)}
+            key={item.id}
         />
     );
 

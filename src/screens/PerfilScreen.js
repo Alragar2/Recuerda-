@@ -1,13 +1,23 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, Switch } from 'react-native';
 
 import colors from '../../constants/colors';
 
 //Components
 import MainText from '../components/MainText';
 import Profile from '../components/Profile';
+import { Ionicons } from '@expo/vector-icons';
+import ToggleProfile from '../components/ToggleProfile';
+import NextPageProfile from '../components/NextPageProfile';
+
+//Hooks
+import useDarkMode from '../hooks/useDarkMode';
 
 export default function PerfilScreen() {
+  const [darkMode, setDarkMode] = useDarkMode();
+  const [notifications, setNotifications] = useState(true);
+  const [location, setLocation] = useState(false);
+
   return (
     <View style={styles.container}>
       <MainText title="Perfil" />
@@ -22,6 +32,47 @@ export default function PerfilScreen() {
         alignItems="flex-start"
         marginTop={0}
       />
+      <ToggleProfile
+        title="Notificaciones"
+        value={notifications}
+        onToggle={setNotifications}
+        iconName="notifications-outline"
+      />
+      <ToggleProfile
+        title="Modo oscuro"
+        value={darkMode}
+        onToggle={setDarkMode}
+        iconName="moon-outline"
+      />
+      <MainText
+        title="Ayuda"
+        titleSize={20}
+        alignItems="flex-start"
+        marginTop={0}
+      />
+      <NextPageProfile
+        title="Preguntas frecuentes"
+        iconName="help-circle-outline"
+      />
+      <NextPageProfile
+        title="Contactar soporte"
+        iconName="mail-outline"
+      />
+      <MainText
+        title="Cerrar sesión"
+        titleSize={12}
+        alignItems="flex-start"
+        marginTop={0}
+        textColor={colors.textSecondary}
+      />
+      <MainText
+        title="Eliminar cuenta"
+        titleSize={12}
+        alignItems="flex-start"
+        marginTop={0}
+        textColor={colors.textSecondary}
+      />
+      
     </View>
   );
 }

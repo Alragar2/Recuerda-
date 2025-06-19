@@ -10,13 +10,14 @@ export default function MainText({
     subtitleSize = 16,
     alignItems = "center",
     marginTop = 50,
-    marginVertical = 12
+    marginVertical = 12,
+    textColor = colors.text,
 }) {
     return (
         <View style={[styles.container, { marginVertical }]}>
             <View style={{ marginTop }} />
             <View style={[styles.viewTitle, { alignItems }]}>
-                <Text style={[styles.title, { fontSize: titleSize }]}>{title}</Text>
+                <Text style={[styles.title, { fontSize: titleSize, color: textColor }]}>{title}</Text>
             </View>
             {subtitle && <Text style={[styles.subtitle, { fontSize: subtitleSize }]}>{subtitle}</Text>}
         </View>
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: "bold",
-        color: colors.text,
         // fontSize se aplica dinámicamente como prop
     },
     subtitle: {

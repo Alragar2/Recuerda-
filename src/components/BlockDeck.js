@@ -12,7 +12,7 @@ const BlockDeck = ({ urlimage, title, description }) => {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
                         source={{ uri: urlimage }}
-                        style={{ width: 60, height: 60, borderRadius: 8 }}
+                        style={{ width: 60, height: 60, borderRadius: 8, marginLeft: 8 }}
                     />
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>{title}</Text>

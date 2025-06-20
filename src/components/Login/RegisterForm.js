@@ -1,43 +1,40 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from "react-native";
 import colors from "../../../constants/colors";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase-config";
+import { useAuth } from "../../hooks/useAuth";
 
 const RegisterForm = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+    const { signUp, loading } = useAuth();
 
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const confirmPasswordInputRef = useRef();
 
     const handleEmailSignUp = async () => {
-        if (!email || !password) {
-            Alert.alert("Error", "Introduce un email y una contraseña");
+        if (!name || !email || !password) {
+            Alert.alert("Error", "Todos los campos son obligatorios");
             return;
         }
         if (password !== confirmPassword) {
             Alert.alert("Error", "Las contraseñas no coinciden");
             return;
         }
-        try {
-            setLoading(true);
-            await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                // Aquí puedes guardar el nombre del usuario en la base de datos si es necesario
-                const user = userCredential.user;
-                console.log("Usuario registrado:", user);
-            });
+        
+        const result = await signUp(email, password, name);
+        
+        if (result.success) {
             Alert.alert("Éxito", "Usuario registrado correctamente");
-            // Aquí podrías redirigir a la pantalla principal, resetear inputs, etc.
-        } catch (error) {
-            console.log("Error al registrarse:", error);
-            Alert.alert("Error", error.message || "No se pudo registrar");
-        } finally {
-            setLoading(false);
+            // Limpiar los campos del formulario
+            setName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+        } else {
+            Alert.alert("Error", result.error || "No se pudo registrar");
         }
     };
 

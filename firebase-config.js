@@ -1,8 +1,9 @@
 // firebase.js
 
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { initializeAuth, getReactNativePersistence, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import getAsyncStorage, { isAsyncStorageAvailable } from "./src/utils/asyncStorageUtils";
 
 // Your web app's Firebase configuration
 export const firebaseConfig = {
@@ -18,8 +19,26 @@ export const firebaseConfig = {
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 
-// Inicializar Auth de forma simple
-const auth = getAuth(app);
+// Inicializar Auth con persistencia AsyncStorage para React Native
+let auth;
+try {
+  if (isAsyncStorageAvailable()) {
+    // Inicializar con persistencia AsyncStorage
+    const AsyncStorage = getAsyncStorage();
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage)
+    });
+    console.log('✅ Firebase Auth inicializado con AsyncStorage persistence');
+  } else {
+    // Fallback a auth simple si AsyncStorage no está disponible
+    auth = getAuth(app);
+    console.warn('⚠️ Firebase Auth inicializado sin AsyncStorage persistence');
+  }
+} catch (error) {
+  console.warn('❌ Error inicializando Firebase Auth con AsyncStorage, usando fallback:', error);
+  auth = getAuth(app);
+}
+
 const db = getFirestore(app);
 
 export { app, auth, db };

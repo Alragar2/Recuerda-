@@ -1,13 +1,12 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from "react-native";
 import colors from "../../../constants/colors";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase-config";
+import { useAuth } from "../../hooks/useAuth";
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+    const { signIn, loading } = useAuth();
 
     const passwordInputRef = useRef();
 
@@ -17,20 +16,15 @@ const LoginForm = () => {
             return;
         }
 
-        try {
-            setLoading(true);
-            await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                // El usuario ha iniciado sesión correctamente
-                const user = userCredential.user;   
-                console.log("Usuario autenticado:", user);
-            });
+        const result = await signIn(email, password);
+        
+        if (result.success) {
             Alert.alert("Éxito", "Inicio de sesión exitoso");
-            // Aquí podrías redirigir a la pantalla principal, resetear inputs, etc.
-        } catch (error) {
-            console.log("Error al iniciar sesión:", error);
-            Alert.alert("Error", error.message || "No se pudo iniciar sesión");
-        } finally {
-            setLoading(false);
+            // Limpiar los campos del formulario
+            setEmail('');
+            setPassword('');
+        } else {
+            Alert.alert("Error", result.error || "No se pudo iniciar sesión");
         }
     };
 

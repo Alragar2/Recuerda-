@@ -11,6 +11,7 @@ const colors = {
   danger: '#FF3B30',
   success: '#34C759',
   cardBackground: '#FFFFFF',
+  gray: '#B0B0B0',
 };
 
 export default colors;

@@ -1,23 +1,67 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from "react-native";
 import colors from "../../../constants/colors";
+import { useAuth } from "../../context/AuthContextClean";
 
 const RegisterForm = () => {
-    // Estados para los campos
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+    
+    const { register, loading } = useAuth();
 
     // Referencias para los inputs
     const emailInputRef = useRef(null);
     const passwordInputRef = useRef(null);
     const confirmPasswordInputRef = useRef(null);
 
-    // Placeholder para la función de registro
-    const handleEmailSignUp = () => {
-        // ...aquí iría la lógica de registro...
+    const handleRegister = async () => {
+        console.log('🔍 RegisterForm - handling register with:', { name, email, password: '***', confirmPassword: '***' });
+        
+        // Validaciones básicas
+        if (!name || name.trim() === '') {
+            Alert.alert('Error', 'El nombre es obligatorio');
+            return;
+        }
+        
+        if (!email || email.trim() === '') {
+            Alert.alert('Error', 'El email es obligatorio');
+            return;
+        }
+        
+        if (!password || password.trim() === '') {
+            Alert.alert('Error', 'La contraseña es obligatoria');
+            return;
+        }
+        
+        if (!confirmPassword || confirmPassword.trim() === '') {
+            Alert.alert('Error', 'Debes confirmar la contraseña');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            Alert.alert('Error', 'Las contraseñas no coinciden');
+            return;
+        }
+
+        const userData = {
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            password: password,
+            confirmPassword: confirmPassword
+        };
+        
+        console.log('✅ RegisterForm - validated data, calling register function...');
+
+        try {
+            await register(userData);
+            console.log('RegisterForm - registration successful');
+            Alert.alert('Éxito', 'Usuario registrado correctamente');
+        } catch (error) {
+            console.error('RegisterForm error:', error);
+            Alert.alert('Error', error.message || 'Error al registrar usuario');
+        }
     };
 
     return (
@@ -61,13 +105,16 @@ const RegisterForm = () => {
                 secureTextEntry
                 ref={confirmPasswordInputRef}
                 returnKeyType="done"
-                onSubmitEditing={handleEmailSignUp}
+                onSubmitEditing={handleRegister}
             />
             <TouchableHighlight
                 style={[styles.button, loading && styles.buttonDisabled]}
-                // ...aquí podrías poner onPress={handleEmailSignUp} si lo deseas...
+                onPress={handleRegister}
+                disabled={loading}
             >
-                <Text style={styles.buttonText}>Registrarse</Text>
+                <Text style={styles.buttonText}>
+                    {loading ? 'Registrando...' : 'Registrarse'}
+                </Text>
             </TouchableHighlight>
 
             {/* Separador */}

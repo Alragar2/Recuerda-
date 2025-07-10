@@ -1,19 +1,39 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from "react-native";
 import colors from "../../../constants/colors";
-import ProfileScreen from "../../screens/PerfilScreen"; // Descomenta si quieres mostrar el perfil tras login
+import { useAuth } from "../../context/AuthContextClean";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const passwordInputRef = useRef(null);
-    const [loading, setLoading] = useState(false);
+    
+    const { login, loading } = useAuth();
 
-    const [showProfile, setShowProfile] = useState(false);
-
-    if (showProfile) {
-      return <ProfileScreen />;
-    }
+    const handleLogin = async () => {
+        console.log('🔍 LoginForm - handling login with:', { email, password: '***' });
+        
+        // Validaciones básicas
+        if (!email || email.trim() === '') {
+            Alert.alert('Error', 'El email es obligatorio');
+            return;
+        }
+        
+        if (!password || password.trim() === '') {
+            Alert.alert('Error', 'La contraseña es obligatoria');
+            return;
+        }
+        
+        try {
+            console.log('LoginForm - calling login function...');
+            await login(email.trim().toLowerCase(), password);
+            console.log('LoginForm - login successful');
+            Alert.alert('Éxito', 'Sesión iniciada correctamente');
+        } catch (error) {
+            console.error('LoginForm error:', error);
+            Alert.alert('Error', error.message || 'Error al iniciar sesión');
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -35,13 +55,17 @@ const LoginForm = ({ onLogin }) => {
                 secureTextEntry
                 ref={passwordInputRef}
                 returnKeyType="done"
+                onSubmitEditing={handleLogin}
             />
 
             <TouchableHighlight
                 style={[styles.button, loading && styles.buttonDisabled]}
-                onPress={onLogin}
+                onPress={handleLogin}
+                disabled={loading}
             >
-                <Text style={styles.buttonText}>Iniciar sesión</Text>
+                <Text style={styles.buttonText}>
+                    {loading ? 'Iniciando...' : 'Iniciar sesión'}
+                </Text>
             </TouchableHighlight>
 
             {/* Separador */}

@@ -10,7 +10,7 @@ import BlockDeck from '../components/BlockDeck';
 // Data
 import mockData from '../data/mockData.json';
 
-export default function MazosScreen() {
+export default function DecksScreen() {
 
   const recentData = mockData.recentCards;
 
